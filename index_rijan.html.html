@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Rijan Atelier</title>
+<style>
+*{box-sizing:border-box;margin:0}html{scroll-behavior:smooth}
+body{background:#fbf7f0;color:#25211d;font:16px/1.6 system-ui,sans-serif}
+h1,h2,h3{font-family:Georgia,serif;line-height:1.2}
+nav,section,footer{max-width:960px;margin:auto;padding:20px}
+nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+a{color:#a63d20}
+.hero{padding-block:70px;text-align:center}h1{font-size:clamp(2rem,7vw,3.5rem)}
+.btn{display:inline-block;background:#a63d20;color:#fff;border:0;border-radius:6px;padding:12px 22px;font:inherit;text-decoration:none;cursor:pointer;margin-top:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:18px}
+.card{background:#fff;color:#25211d;border-radius:10px;overflow:hidden;box-shadow:0 2px 10px #0001}
+.card div{padding:16px}.card i{display:block;height:110px}
+form{display:grid;gap:12px;margin-top:16px}label{display:grid;gap:4px;font-weight:600}
+input,select,textarea{font:inherit;padding:10px;border:1px solid #bbb;border-radius:6px;background:#fff;color:#25211d}
+#out{display:none;margin-top:20px}#msg{width:100%}
+</style></head><body>
+<nav><b class="name">Rijan Atelier</b><span><a href="#services">Services</a> &nbsp; <a href="#order">Order</a></span></nav>
+<section class="hero"><h1>Art made for your walls and memories</h1><p>Wall paintings, acrylic paintings and portraits, made to order.</p><a class="btn" href="#order">Order a painting</a></section>
+<section><h2>Custom orders, made with care</h2><p>I’m Rijan Maharjan, and I also take custom orders. Have something special in mind? Share your idea, preferred size and colors, and I’ll turn it into artwork made just for you, with close attention to detail and a high-quality finish.</p><a class="btn" href="#order">Request a custom order</a></section>
+<section id="services"><h2>What we paint</h2><div class="grid">
+<article class="card"><i style="background:linear-gradient(120deg,#e8a33d,#c8553d,#58355e)"></i><div><h3>Wall painting</h3><p>Murals and decorative art for homes, cafés, schools and offices.</p></div></article>
+<article class="card"><i style="background:linear-gradient(45deg,#1d6a96,#85b8cb,#f1e3c6)"></i><div><h3>Acrylic painting</h3><p>Custom canvas paintings in your choice of subject, size and colors.</p></div></article>
+<article class="card"><i style="background:radial-gradient(circle at 40% 40%,#f3c9a5,#a65d45,#3b2a26)"></i><div><h3>Portrait</h3><p>Portraits of people, families or pets, painted from your photos.</p></div></article>
+<article class="card"><i style="background:linear-gradient(160deg,#2f5d50,#a3b565,#f2d16b)"></i><div><h3>Other artwork</h3><p>Have a different idea? Describe it in the order form.</p></div></article>
+</div></section>
+<section id="order"><h2>Order request</h2><p>Fill this in to create your order message. Prices are confirmed after we see your request.</p>
+<form id="f">
+<label>Your name<input name="Name" required></label>
+<label>Phone number<input name="Phone" type="tel" required></label>
+<label>Type of work<select name="Type"><option>Wall painting</option><option>Acrylic painting</option><option>Portrait</option><option>Other artwork</option></select></label>
+<label>Size<input name="Size" placeholder="e.g. A3, or wall 8 × 10 ft" required></label>
+<label>Location or delivery address<input name="Address" required></label>
+<label>Needed by<input name="Needed by" type="date"></label>
+<label>Details<textarea name="Details" rows="4" placeholder="Subject, colors, ideas. For portraits, send the photo along with your message."></textarea></label>
+<button class="btn">Create order message</button></form>
+<div id="out" aria-live="polite"><p><b>Your order is not sent yet.</b> <span id="how"></span></p><textarea id="msg" rows="9" readonly></textarea><button class="btn" id="copy" type="button">Copy message</button> <a class="btn" id="wa" target="_blank" rel="noopener" hidden>Send on WhatsApp</a></div></section>
+<footer><p><span class="name">Rijan Atelier</span> by Rijan Maharjan · Contact: <span id="contact">your number here</span></p></footer>
+<script>
+const WHATSAPP=""; // country code + number, digits only
+const $=id=>document.getElementById(id);
+if(WHATSAPP)$("contact").textContent="+"+WHATSAPP;
+$("how").textContent=WHATSAPP?"Send it on WhatsApp, or copy it.":"Copy this message and send it to the studio.";
+$("f").onsubmit=e=>{e.preventDefault();const m="New order request\n"+[...new FormData(e.target)].map(([k,v])=>k+": "+(v||"-")).join("\n");$("msg").value=m;$("out").style.display="block";if(WHATSAPP){$("wa").hidden=false;$("wa").href="https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(m)}$("out").scrollIntoView()};
+$("copy").onclick=async()=>{try{await navigator.clipboard.writeText($("msg").value);$("copy").textContent="Copied"}catch{$("msg").select();$("copy").textContent="Press and hold, or Ctrl+C, to copy"}};
+</script></body></html>
